@@ -34,10 +34,10 @@ const styles = StyleSheet.create({
     borderRightWidth: 4,
   },
   highlight: {
-    backgroundColor: '#e6e6fa', // lavender
+    backgroundColor: '#d4eaf9',
   },
   highlightStrong: {
-    backgroundColor: '#dda0dd', // plum
+    backgroundColor: '#cdcdf7',
   },
   box: {
     height: 40,
@@ -49,10 +49,10 @@ const styles = StyleSheet.create({
     fontSize: 30,
   },
   solved: {
-    color: 'green',
+    color: '#0b8ec6',
   },
   error: {
-    color: 'red',
+    color: '#dc143c',
   },
 });
 
