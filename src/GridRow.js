@@ -33,6 +33,9 @@ const styles = StyleSheet.create({
   borderRightThick: {
     borderRightWidth: 4,
   },
+  highlightLight: {
+    backgroundColor: '#e6edf2',
+  },
   highlight: {
     backgroundColor: '#d4eaf9',
   },
@@ -56,8 +59,10 @@ const styles = StyleSheet.create({
   },
 });
 
-const getBoxStyles = (rowIdx, colIdx, box, selected, selectedValue) => {
+const getBoxStyles = (rowIdx, colIdx, box, selected, selectedValue, valueCoords, easyMode) => {
   const boxStyles = [styles.box, styles.borderRight, styles.borderBottom];
+
+  // border styles based on row/col
   if (rowIdx % 3 === 0) {
     boxStyles.push(styles.borderTop);
   }
@@ -76,9 +81,39 @@ const getBoxStyles = (rowIdx, colIdx, box, selected, selectedValue) => {
   if (colIdx === 8) {
     boxStyles.push(styles.borderRightThick);
   }
+
+  
+  // light highlight if box is in the row/col/square of the selected value
+  const rowSquare = Math.floor(rowIdx / 3);
+  const colSquare = Math.floor(colIdx / 3);
+  const selectedRowSquare = Math.floor(selected.rowIdx / 3);
+  const selectedColSquare = Math.floor(selected.colIdx / 3);
+  if (selected.rowIdx === rowIdx 
+    || selected.colIdx === colIdx
+    || (rowSquare === selectedRowSquare && colSquare === selectedColSquare)
+  ) {
+    boxStyles.push(styles.highlightLight);
+  } else if (easyMode) { // else b/c if we've already added the light highlight, no need to check the valueCoords
+    // light highlight if box is in the row/col/square of any values matching the selected value
+    for (let i = 0, len = valueCoords.length; i < len; i++) {
+      const vcRowSquare = Math.floor(valueCoords[i][0] / 3);
+      const vcColSquare = Math.floor(valueCoords[i][1] / 3);
+      if (valueCoords[i][0] === rowIdx 
+        || valueCoords[i][1] === colIdx
+        || (rowSquare === vcRowSquare && colSquare === vcColSquare)
+      ) {
+        boxStyles.push(styles.highlightLight);
+        break; // if we find a match, no need to check the rest of the valueCoords
+      }
+    }
+  }
+      
+
+  // highlight if box value matches selected value
   if (selectedValue && selectedValue === box.value) {
     boxStyles.push(styles.highlight);
   }
+  // strong highlight if this is the selected box
   if (selected.rowIdx === rowIdx && selected.colIdx === colIdx) {
     boxStyles.push(styles.highlightStrong);
   }
@@ -97,7 +132,7 @@ const getNumberStyles = (box) => {
 }
 
 
-const Row = ({ row, rowIdx, selected, selectedValue, dispatch }) => (
+const Row = ({ row, rowIdx, selected, selectedValue, valueCoords, easyMode, dispatch }) => (
   <View style={{ flexDirection: 'row' }}>
     {row.map((box, colIdx) => {
       return (
@@ -107,7 +142,7 @@ const Row = ({ row, rowIdx, selected, selectedValue, dispatch }) => (
           }}
           key={`${rowIdx}-${colIdx}`}
         >
-          <View style={getBoxStyles(rowIdx, colIdx, box, selected, selectedValue)}>
+          <View style={getBoxStyles(rowIdx, colIdx, box, selected, selectedValue, valueCoords, easyMode)}>
             <Text 
               style={getNumberStyles(box)}
             >
