@@ -48,7 +48,7 @@ const getValueCoords = (grid, value) => {
   return coords;
 };
 
-const Grid = ({ grid, selected, options, dispatch }) => {
+const Grid = ({ grid, selected, options, dispatch, numbersRemaining }) => {
   const selectedValue = getSelectedValue(grid, selected);
   return (
     <View style={styles.grid}>
@@ -91,7 +91,7 @@ const Grid = ({ grid, selected, options, dispatch }) => {
             style={styles.numberPane}
           >
             <Text style={styles.number}>
-              {n}
+              {numbersRemaining[n] > 0 && n}
             </Text>
           </TouchableWithoutFeedback>
         ))}

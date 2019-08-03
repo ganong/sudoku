@@ -12,8 +12,6 @@
 
 ## To Do
 
-- Add toggle-able "easy mode" - adds line and box highlights to make it easy to see where a number can't be.
-- Keep track of how many of each number is used - remove it from the bottom when the max is reached.
 - Keep track of errors, game is lost after 3.
 - Add Home screen with Start Game button
 - Add Home button to game page (if you go home from game, abandon game for now)
