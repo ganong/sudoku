@@ -26,6 +26,9 @@ import Grid from './src/Grid';
     rowIdx: number || null,
     colIdx: number || null,
   },
+  options: {
+    easyMode: bool, // true - highlight row, column and box
+  },
 }
 */
 
@@ -47,6 +50,9 @@ const initGridState = () => {
     selected: {
       rowIdx: null,
       colIdx: null,
+    },
+    options: {
+      easyMode: true,
     },
   };
 
@@ -101,6 +107,15 @@ const gridReducer = (state, { type, payload }) => {
       };
     }
 
+    case 'easy-mode':
+      return {
+        ...state,
+        options: {
+          ...state.options,
+          easyMode: !state.options.easyMode,
+        },
+      };
+
     default:
       return state;
   }
@@ -108,13 +123,14 @@ const gridReducer = (state, { type, payload }) => {
 
 function App() {
   const [state, dispatch] = useReducer(gridReducer, null, initGridState);
-  const { grid, selected } = state;
+  const { grid, selected, options } = state;
 
   return (
     <Grid
       grid={grid}
       dispatch={dispatch}
       selected={selected}
+      options={options}
     />
   );
 }

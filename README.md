@@ -12,8 +12,9 @@
 
 ## To Do
 
-- Keep track of errors, game is lost after 3.
 - Add toggle-able "easy mode" - adds line and box highlights to make it easy to see where a number can't be.
+- Keep track of how many of each number is used - remove it from the bottom when the max is reached.
+- Keep track of errors, game is lost after 3.
 - Add Home screen with Start Game button
 - Add Home button to game page (if you go home from game, abandon game for now)
 - Learn how to Publish/Package to install on IOS and Android
@@ -30,3 +31,7 @@
 - Add a way to take notes - place numbers that a square could be into that square
   - These notes should update if a number is placed in a row/column/box that makes this square invalid to be that number
 - Add a way to do hints - track how many hints are used per game in statistics
+- Update easy mode to be options to show grid highlights:
+  - show highlights for all matching numbers
+  - show highlights only for selected number
+  - show no highlights
