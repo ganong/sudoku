@@ -12,7 +12,6 @@
 
 ## To Do
 
-- Keep track of errors, game is lost after 3.
 - Add Home screen with Start Game button
 - Add Home button to game page (if you go home from game, abandon game for now)
 - Learn how to Publish/Package to install on IOS and Android
@@ -33,3 +32,4 @@
   - show highlights for all matching numbers
   - show highlights only for selected number
   - show no highlights
+- Add a configurable amount of errors, after which, the game is lost (default to 5)

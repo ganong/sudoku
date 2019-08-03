@@ -27,10 +27,11 @@ import Grid from './src/Grid';
     colIdx: number || null,
   },
   numbersLeft: { // how many of each number 1-9 are left to be input in the grid
-    1: 9,
-    2: 9,
+    1: number,
+    2: number,
     ...
   },
+  errors: number,
   options: {
     easyMode: bool, // true - highlight row, column and box
   },
@@ -73,6 +74,7 @@ const initGridState = () => {
       colIdx: null,
     },
     numbersRemaining,
+    errors: 0,
     options: {
       easyMode: true,
     },
@@ -92,8 +94,9 @@ const gridReducer = (state, { type, payload }) => {
       }
 
       const grid = _.cloneDeep(state.grid);
+      const solved = value === state.solvedGrid[rowIdx][colIdx];
       grid[rowIdx][colIdx].value = value;
-      grid[rowIdx][colIdx].solved = value === state.solvedGrid[rowIdx][colIdx];
+      grid[rowIdx][colIdx].solved = solved;
       
       return {
         ...state,
@@ -101,7 +104,8 @@ const gridReducer = (state, { type, payload }) => {
         numbersRemaining: {
           ...state.numbersRemaining,
           [value]: state.numbersRemaining[value] - 1
-        }
+        }, 
+        errors: solved ? state.errors : (state.errors + 1)
       };
     }
 
@@ -154,7 +158,7 @@ const gridReducer = (state, { type, payload }) => {
 
 function App() {
   const [state, dispatch] = useReducer(gridReducer, null, initGridState);
-  const { grid, selected, options, numbersRemaining } = state;
+  const { grid, selected, options, numbersRemaining, errors } = state;
 
   return (
     <Grid
@@ -163,6 +167,7 @@ function App() {
       selected={selected}
       options={options}
       numbersRemaining={numbersRemaining}
+      errors={errors}
     />
   );
 }

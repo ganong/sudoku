@@ -7,6 +7,11 @@ import Row from './GridRow';
 
 
 const styles = StyleSheet.create({
+  errors: {
+    alignSelf: 'flex-end',
+    paddingBottom: 4,
+    paddingRight: 15,
+  },
   grid: {
     flex: 1, 
     alignItems: 'center', 
@@ -48,10 +53,15 @@ const getValueCoords = (grid, value) => {
   return coords;
 };
 
-const Grid = ({ grid, selected, options, dispatch, numbersRemaining }) => {
+const Grid = ({ grid, selected, options, dispatch, numbersRemaining, errors }) => {
   const selectedValue = getSelectedValue(grid, selected);
   return (
     <View style={styles.grid}>
+      <View style={styles.errors}>
+        <Text>
+          Errors: {errors}
+        </Text>
+      </View>
       <View>
         {grid.map((row, rowIdx) => (
           <Row
