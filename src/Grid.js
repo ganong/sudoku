@@ -96,6 +96,7 @@ const Grid = ({ grid, selected, options, dispatch, numbersRemaining, errors }) =
           <TouchableWithoutFeedback
             key={n}
             onPress={() => {
+              if (numbersRemaining[n] < 1) return;
               dispatch({ type: 'update', payload: { value: n } });
             }}
             style={styles.numberPane}

@@ -95,6 +95,7 @@ const gridReducer = (state, { type, payload }) => {
 
       const grid = _.cloneDeep(state.grid);
       const solved = value === state.solvedGrid[rowIdx][colIdx];
+      const curValue = grid[rowIdx][colIdx].value;
       grid[rowIdx][colIdx].value = value;
       grid[rowIdx][colIdx].solved = solved;
       
@@ -103,7 +104,7 @@ const gridReducer = (state, { type, payload }) => {
         grid,
         numbersRemaining: {
           ...state.numbersRemaining,
-          [value]: state.numbersRemaining[value] - 1
+          [value]: curValue !== value ? (state.numbersRemaining[value] - 1) : state.numbersRemaining[value],
         }, 
         errors: solved ? state.errors : (state.errors + 1)
       };
@@ -126,7 +127,7 @@ const gridReducer = (state, { type, payload }) => {
         grid,
         numbersRemaining: {
           ...state.numbersRemaining,
-          [curValue]: state.numbersRemaining[curValue] + 1
+          [curValue]: state.numbersRemaining[curValue] + 1,
         }
       };
     }
