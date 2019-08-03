@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import _ from 'lodash';
 // const { performance } = require('perf_hooks');
 
 // easy = 38

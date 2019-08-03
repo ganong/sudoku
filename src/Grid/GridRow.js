@@ -1,7 +1,7 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { StyleSheet, Text, View } from 'react-native';
 import { TouchableWithoutFeedback } from 'react-native-gesture-handler';
-import _ from 'lodash';
 
 
 const styles = StyleSheet.create({
@@ -86,8 +86,8 @@ const getBoxStyles = (rowIdx, colIdx, box, selected, selectedValue, valueCoords,
   // light highlight if box is in the row/col/square of the selected value
   const rowSquare = Math.floor(rowIdx / 3);
   const colSquare = Math.floor(colIdx / 3);
-  const selectedRowSquare = Math.floor(selected.rowIdx / 3);
-  const selectedColSquare = Math.floor(selected.colIdx / 3);
+  const selectedRowSquare = selected.rowIdx !== null ? Math.floor(selected.rowIdx / 3) : null;
+  const selectedColSquare = selected.colIdx !== null ? Math.floor(selected.colIdx / 3) : null;
   if (selected.rowIdx === rowIdx 
     || selected.colIdx === colIdx
     || (rowSquare === selectedRowSquare && colSquare === selectedColSquare)
@@ -132,14 +132,12 @@ const getNumberStyles = (box) => {
 }
 
 
-const Row = ({ row, rowIdx, selected, selectedValue, valueCoords, easyMode, dispatch }) => (
+const Row = ({ row, rowIdx, selected, selectedValue, valueCoords, easyMode, onSelect }) => (
   <View style={{ flexDirection: 'row' }}>
     {row.map((box, colIdx) => {
       return (
         <TouchableWithoutFeedback
-          onPress={() => {
-            dispatch({ type: 'select', payload: { rowIdx, colIdx } });
-          }}
+          onPress={() => onSelect(rowIdx, colIdx)}
           key={`${rowIdx}-${colIdx}`}
         >
           <View style={getBoxStyles(rowIdx, colIdx, box, selected, selectedValue, valueCoords, easyMode)}>
@@ -154,5 +152,14 @@ const Row = ({ row, rowIdx, selected, selectedValue, valueCoords, easyMode, disp
     })}
   </View>
 );
+Row.propTypes = {
+  row: PropTypes.array.isRequired,
+  rowIdx: PropTypes.number.isRequired, 
+  selected: PropTypes.object, 
+  selectedValue: PropTypes.number, 
+  valueCoords: PropTypes.array,
+  easyMode: PropTypes.bool,
+  onSelect: PropTypes.func.isRequired,
+};
 
 export default Row;
