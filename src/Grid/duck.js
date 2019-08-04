@@ -105,14 +105,12 @@ export default function gridReducer(state = initGridState(), { type, payload }) 
         }
       }
       
-      const newState = {
+      return {
         ...state,
         grid,
         numbersRemaining, 
         errors: solved ? state.errors : (state.errors + 1)
       };
-
-      return newState;
     }
 
     case CLEAR_SQUARE: {
@@ -123,7 +121,7 @@ export default function gridReducer(state = initGridState(), { type, payload }) 
       }
 
       const grid = _.cloneDeep(state.grid);
-      const curValue = grid[rowIdx][colIdx].value;
+      const oldValue = grid[rowIdx][colIdx].value;
       grid[rowIdx][colIdx].value = 0;
       grid[rowIdx][colIdx].solved = null;
       
@@ -132,7 +130,7 @@ export default function gridReducer(state = initGridState(), { type, payload }) 
         grid,
         numbersRemaining: {
           ...state.numbersRemaining,
-          [curValue]: state.numbersRemaining[curValue] + 1,
+          [oldValue]: state.numbersRemaining[oldValue] + 1,
         }
       };
     }
