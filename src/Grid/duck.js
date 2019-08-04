@@ -93,19 +93,26 @@ export default function gridReducer(state = initGridState(), { type, payload }) 
 
       const grid = _.cloneDeep(state.grid);
       const solved = value === state.solvedGrid[rowIdx][colIdx];
-      const curValue = grid[rowIdx][colIdx].value;
+      const oldValue = grid[rowIdx][colIdx].value;
       grid[rowIdx][colIdx].value = value;
       grid[rowIdx][colIdx].solved = solved;
+
+      const numbersRemaining = { ...state.numbersRemaining };
+      if (oldValue !== value) {
+        numbersRemaining[value] = numbersRemaining[value] - 1;
+        if (oldValue > 0) {
+          numbersRemaining[oldValue] = numbersRemaining[oldValue] + 1;
+        }
+      }
       
-      return {
+      const newState = {
         ...state,
         grid,
-        numbersRemaining: {
-          ...state.numbersRemaining,
-          [value]: curValue !== value ? (state.numbersRemaining[value] - 1) : state.numbersRemaining[value],
-        }, 
+        numbersRemaining, 
         errors: solved ? state.errors : (state.errors + 1)
       };
+
+      return newState;
     }
 
     case CLEAR_SQUARE: {

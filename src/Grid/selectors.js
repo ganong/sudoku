@@ -32,3 +32,21 @@ export const getMatchingValueCoords = createSelector(
     return coords;
   }
 );
+
+export const isGridSolved = createSelector(
+  getGrid,
+  (grid) => {
+    let solved = true;
+    gridLoop:
+    for (rowIdx = 0; rowIdx < 9; rowIdx++) {
+      for (colIdx = 0; colIdx < 9; colIdx++) {
+        const square = grid[rowIdx][colIdx];
+        if (square.immutable === false && square.solved !== true) {
+          solved = false;
+          break gridLoop;
+        }
+      }
+    }
+    return solved;
+  }
+);
