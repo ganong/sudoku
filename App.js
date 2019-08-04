@@ -2,13 +2,13 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import store from './src/store';
 
-import Grid from './src/Grid/GridContainer';
+import AppContainer from './src/AppContainer';
 
 
 function App() {
   return (
     <Provider store={store}>
-      <Grid />
+      <AppContainer />
     </Provider>
   );
 }

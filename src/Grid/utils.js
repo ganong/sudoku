@@ -150,7 +150,8 @@ function buildGrid() {
 
   const grid = _.cloneDeep(solvedGrid);
 
-  let numsToRemove = 43;
+  let numsToRemove = 1;
+  // let numsToRemove = 43;
   let maxAttempts = 50;
   while (numsToRemove > 0 && maxAttempts > 0) {
     let row, col;

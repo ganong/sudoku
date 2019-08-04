@@ -12,8 +12,7 @@
 
 ## To Do
 
-- add redux, react-redux - move state to redux
-- Add complete game message with button to restart - use react-navigation
+- Add complete game message - use react-navigation
 - Add Home screen with Start Game button
 - Add Home button to game page (if you go home from game, abandon game for now)
 - add redux-persist, redux-async-storage

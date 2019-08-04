@@ -93,17 +93,22 @@ export default function gridReducer(state = initGridState(), { type, payload }) 
 
       const grid = _.cloneDeep(state.grid);
       const solved = value === state.solvedGrid[rowIdx][colIdx];
-      const curValue = grid[rowIdx][colIdx].value;
+      const oldValue = grid[rowIdx][colIdx].value;
       grid[rowIdx][colIdx].value = value;
       grid[rowIdx][colIdx].solved = solved;
+
+      const numbersRemaining = { ...state.numbersRemaining };
+      if (oldValue !== value) {
+        numbersRemaining[value] = numbersRemaining[value] - 1;
+        if (oldValue > 0) {
+          numbersRemaining[oldValue] = numbersRemaining[oldValue] + 1;
+        }
+      }
       
       return {
         ...state,
         grid,
-        numbersRemaining: {
-          ...state.numbersRemaining,
-          [value]: curValue !== value ? (state.numbersRemaining[value] - 1) : state.numbersRemaining[value],
-        }, 
+        numbersRemaining, 
         errors: solved ? state.errors : (state.errors + 1)
       };
     }
@@ -116,7 +121,7 @@ export default function gridReducer(state = initGridState(), { type, payload }) 
       }
 
       const grid = _.cloneDeep(state.grid);
-      const curValue = grid[rowIdx][colIdx].value;
+      const oldValue = grid[rowIdx][colIdx].value;
       grid[rowIdx][colIdx].value = 0;
       grid[rowIdx][colIdx].solved = null;
       
@@ -125,7 +130,7 @@ export default function gridReducer(state = initGridState(), { type, payload }) 
         grid,
         numbersRemaining: {
           ...state.numbersRemaining,
-          [curValue]: state.numbersRemaining[curValue] + 1,
+          [oldValue]: state.numbersRemaining[oldValue] + 1,
         }
       };
     }
