@@ -1,10 +1,5 @@
 import _ from 'lodash';
-// const { performance } = require('perf_hooks');
 
-// easy = 38
-// medium = 30
-// hard = 25
-// expert = 23
 
 function getEmptyGrid() {
   return _.range(9).map(f => _.fill(Array(9), 0));
@@ -143,15 +138,17 @@ function isSingleSolutionGrid(grid) {
 }
 
 function buildGrid() {
-  // const startTime = performance.now();
 
   const solvedGrid = createGrid();
-  // console.log(solvedGrid);
 
   const grid = _.cloneDeep(solvedGrid);
 
-  let numsToRemove = 1;
-  // let numsToRemove = 43;
+  // easy = 38
+  // medium = 30
+  // hard = 25
+  // expert = 23
+
+  let numsToRemove = 43;
   let maxAttempts = 50;
   while (numsToRemove > 0 && maxAttempts > 0) {
     let row, col;
@@ -172,15 +169,7 @@ function buildGrid() {
     numsToRemove--;
   }
 
-  // console.log(grid);
-  // console.log('not removed', numsToRemove);
-  console.log('Built grid');
-
-  // const endTime = performance.now();
-  // console.log(`time: ${endTime - startTime}ms`);
-
   return {
-    // time: endTime - startTime,
     grid,
     solvedGrid,
   }

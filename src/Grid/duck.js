@@ -31,6 +31,14 @@ import buildGrid from './utils';
 }
 */
 
+const initialState = {
+  solvedGrid: null,
+  grid: null,
+  selected: null,
+  numbersRemaining: null,
+  errors: null,
+};
+
 const initGridState = () => {
   const grids = buildGrid();
   const numbersRemaining = {
@@ -78,11 +86,19 @@ const initGridState = () => {
 const SELECT_SQUARE = 'sudoku/grid/select-square';
 const CLEAR_SQUARE = 'sudoku/grid/clear-square';
 const UPDATE_SQUARE = 'sudoku/grid/update-square';
+const CREATE_GRID = 'sudoku/grid/create';
+const RESET_GRID = 'sudoku/grid/reset';
 
 
 // reducers
-export default function gridReducer(state = initGridState(), { type, payload }) {
+export default function gridReducer(state = initialState, { type, payload }) {
   switch (type) {
+    case CREATE_GRID:
+      return initGridState();
+
+    case RESET_GRID:
+      return initialState;
+
     case UPDATE_SQUARE: {
       const { value } = payload;
       const { rowIdx, colIdx } = state.selected;
@@ -163,3 +179,6 @@ export const updateSquare = (value) => ({
   type: UPDATE_SQUARE,
   payload: { value },
 });
+
+export const createGrid = () => ({ type: CREATE_GRID });
+export const resetGrid = () => ({ type: RESET_GRID });
