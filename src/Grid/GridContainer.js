@@ -10,7 +10,7 @@ import Navigate from '../Navigate';
 
 const GridContainer = ({ isComplete, ...props}) => {
   if (isComplete) {
-    return <Navigate route="WinScreen" />;
+    return <Navigate route="Win" />;
   }
 
   return (

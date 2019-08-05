@@ -12,15 +12,15 @@
 
 ## To Do
 
-- Add complete game message - use react-navigation
-- Add Home screen with Start Game button
+- if user is on the home screen and a game is in progress
+  - Add a Continue button on top of the New Game button
 - Add Home button to game page (if you go home from game, abandon game for now)
-- add redux-persist, redux-async-storage
 - Learn how to Publish/Package to install on IOS and Android
 - Add difficulties - Easy, Normal, Hard
+- Add multiple "win" messages like "Boo-Yah!"
 - Add game timer
 - Add a way to pause game timer (remove the board so player can't pause to figure out his/her next move)
-- Save state to device
+- Save state to device using redux-persist and redux-async-storage
 - Save game statistics
 - Add statistics page with a way to get to it from the home screen
 - If you go home from game page, ask if the user wants to save the game to continue later or to abandon it.

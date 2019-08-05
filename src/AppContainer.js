@@ -1,22 +1,26 @@
 import { createStackNavigator, createAppContainer } from "react-navigation";
 
-import Grid from './Grid/GridContainer';
-import WinScreen from './Win/WinScreen';
+import Home from './Home/HomeScreen';
+import Grid from './Grid/GridScreen';
+import Win from './Win/WinScreen';
 
 const AppNavigator = createStackNavigator(
   {
+    Home: {
+      screen: Home,
+    },
     Grid: {
       screen: Grid,
     },
-    WinScreen: {
-      screen: WinScreen,
+    Win: {
+      screen: Win,
       navigationOptions: () => ({
         header: null,
       }),
     },
   },
   {
-    initialRouteName: 'Grid',
+    initialRouteName: 'Home',
   },
 );
 
