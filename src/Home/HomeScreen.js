@@ -15,10 +15,6 @@ const styles = StyleSheet.create({
   innerView: {
     alignItems: 'center',
   },
-  titleItalic: {
-    fontSize: 35,
-    fontStyle: 'italic',
-  },
   title: {
     fontSize: 40,
     fontWeight: 'bold',
@@ -30,9 +26,6 @@ const HomeScreen = ({ navigation, gameInProgress }) => {
   return (
     <View style={styles.homeScreen}>
       <View style={styles.innerView}>
-        <Text style={styles.titleItalic}>
-          Simply
-        </Text>
         <Text style={styles.title}>
           Sudoku
         </Text>
